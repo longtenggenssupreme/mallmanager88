@@ -25,18 +25,19 @@ export default {
   },
   methods: {
     async handlelogin () {
+      this.$router.push({name: 'Home'})
       // 第一种方式
-      const res = await this.$http.post('users', this.formdata)
-      // eslint-disable-next-line no-unused-vars
-      const { data, meta: { msg, status } } = res.data
-      if (res.status === 200) {
-        this.$message.success('登陆成功')
-        // 添加登陆以后存储token，防止其他直接到主页
-        localStorage.setItem('', data.token)
-        this.$router.push({name: 'Home'})
-      } else {
-        this.$message.error(msg)
-      }
+      // const res = await this.$http.post('users', this.formdata)
+      // // eslint-disable-next-line no-unused-vars
+      // const { data, meta: { msg, status } } = res.data
+      // if (res.status === 200) {
+      //   this.$message.success('登陆成功')
+      //   // 添加登陆以后存储token，防止其他直接到主页
+      //   localStorage.setItem('', data.token)
+      //   this.$router.push({name: 'Home'})
+      // } else {
+      //   this.$message.error(msg)
+      // }
       // 第二种方式
       //   // 返回登录信息，登陆成功，跳转到主页，否则提示错误信息
       // this.$http.post('users', this.formdata).then((res) => {
