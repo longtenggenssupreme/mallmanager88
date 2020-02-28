@@ -90,7 +90,15 @@
 </template>
 
 <script>
-export default {}
+export default {
+  // 验证token标记
+  beforeCreate () {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      this.$router.push({ name: 'Login' })
+    }
+  }
+}
 </script>
 
 <style>
