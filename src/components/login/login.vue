@@ -27,9 +27,11 @@ export default {
     async handlelogin () {
       const res = await this.$http.post('users', this.formdata)
       // eslint-disable-next-line no-unused-vars
-      const { data: { msg, status } } = res.data
+      const { data, meta: { msg, status } } = res.data
       if (res.status === 200) {
         this.$message.success('登陆成功')
+        // 添加登陆以后存储token，防止其他直接到主页
+        localStorage.setItem('', data.token)
         this.$router.push({name: 'Home'})
       } else {
         this.$message.error(msg)
