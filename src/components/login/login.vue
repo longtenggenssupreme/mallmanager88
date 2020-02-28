@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     async handlelogin () {
+      localStorage.setItem('token', 'token')
       this.$router.push({name: 'Home'})
       // 第一种方式
       // const res = await this.$http.post('users', this.formdata)
@@ -47,7 +48,7 @@ export default {
       //   // eslint-disable-next-line no-unused-vars
       //   const { data: { msg, status } } = res.data
       //   if (res.status === 200) {
-      //     this.$message.sucess('登陆成功')
+      //     this.$message.success('登陆成功')
       //     this.$router.push({name: 'Home'})
       //   } else {
       //     this.$message.error(msg)
