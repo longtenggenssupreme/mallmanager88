@@ -97,14 +97,14 @@ export default {
   beforeCreate () {
     const token = localStorage.getItem('token')
     if (!token) {
-      this.$router.push({ name: 'Login' })
+      this.$router.push({ name: 'login' })
     }
   },
   methods: {
     loginout () {
       localStorage.clear()
       this.$message.success('推出成功')
-      this.$router.push({name: 'Login'})
+      this.$router.push({name: 'login'})
     }
   }
 }

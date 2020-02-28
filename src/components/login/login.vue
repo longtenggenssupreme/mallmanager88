@@ -27,6 +27,15 @@ export default {
     async handlelogin () {
       localStorage.setItem('token', 'token')
       this.$router.push({name: 'Home'})
+      const res = await this.$http.get('users/5')
+      if (res.status === 200) {
+        this.$message.success('登陆成功')
+        // 添加登陆以后存储token，防止其他直接到主页
+        localStorage.setItem('token', 'token')
+        this.$router.push({name: 'home'})
+      } else {
+        this.$message.warning('用户名或者密码错误')
+      }
       // 第一种方式
       // const res = await this.$http.post('users', this.formdata)
       // // eslint-disable-next-line no-unused-vars
