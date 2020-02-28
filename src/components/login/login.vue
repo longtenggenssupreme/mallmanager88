@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     async handlelogin () {
+      // 第一种方式
       const res = await this.$http.post('users', this.formdata)
       // eslint-disable-next-line no-unused-vars
       const { data, meta: { msg, status } } = res.data
@@ -36,6 +37,7 @@ export default {
       } else {
         this.$message.error(msg)
       }
+      // 第二种方式
       //   // 返回登录信息，登陆成功，跳转到主页，否则提示错误信息
       // this.$http.post('users', this.formdata).then((res) => {
       //   // 返回登录信息，登陆成功，跳转到主页，否则提示错误信息
