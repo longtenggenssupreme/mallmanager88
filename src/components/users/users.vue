@@ -7,8 +7,8 @@
     </el-breadcrumb>
     <el-row class="searchRow">
         <el-col>
-            <el-input placeholder="请输入内容" v-model="query" class="inputSearch">
-                <el-button slot="append" icon="el-icon-search"></el-button>
+            <el-input placeholder="请输入内容" @clear="searchclear" clearable v-model="query" class="inputSearch">
+                <el-button @click="searchUserlist()" slot="append" icon="el-icon-search"></el-button>
             </el-input>
             <el-button type="success">成功按钮</el-button>
         </el-col>
@@ -36,18 +36,27 @@
         </template>
         </el-table-column>
         <el-table-column prop="name" label="操作">
-           <template slot-scope="scope">
-             <el-button type="primary" size="mini" plain="false" icon="el-icon-edit" circle></el-button>
-             <el-button type="success" size="mini" plain="false" icon="el-icon-check" circle></el-button>
-             <el-button type="danger" size="mini" plain="false" icon="el-icon-delete" circle></el-button>
+           <template>
+             <el-button type="primary" size="mini" plain icon="el-icon-edit" circle></el-button>
+             <el-button type="success" size="mini" plain icon="el-icon-check" circle></el-button>
+             <el-button type="danger" size="mini" plain icon="el-icon-delete" circle></el-button>
             </template>
         </el-table-column>
     </el-table>
+     <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pagenum"
+      :page-sizes="[2, 4, 6, 8]"
+      :page-size="2"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
 </el-card>
 </template>
 
 <script>
-export default {
+export default { 
   created () {
     this.getUserList()
   },
@@ -55,37 +64,51 @@ export default {
     return {
       query: '',
       pagenum: 1,
-      pagesize: 7,
-      total: 1,
-      userlist: [],
-      tempdata: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'}]}
+      pagesize: 2,
+      total: -1,
+      userlist: []
+    }
   },
   methods: {
-    async getUserList () {
-      // 更具api接口获取数据要求根据登陆的token令牌
-      // const token = localStorage.getItem('token')
-      // this.$http.default.header.common['Autuorization'] = token
-      const {data, status} = await this.$http.get('users?_page=$"{this.pagesize}"&_limit="{this.pagenum}"')
-      // console.log(data.length)
+    searchclear () {
+      this.getUserList()
+    },
+    searchUserlist () {
+      console.log('111111')
+      this.getLikeUserList()
+    },
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`)
+      this.pagesize = val
+      this.getUserList()
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`)
+      this.pagenum = val
+      this.getUserList()
+    },
+    async getLikeUserList () {
+      const {data, status} = await this.$http.get(`users?username_like=${this.query}`)
       if (status === 200) {
         this.$message.success('获取数据成功')
         this.userlist = data
         this.total = data.length
+      } else {
+        this.$message.warning('获取数据失败')
+      }
+    },
+    async getUserList () {
+      // 更具api接口获取数据要求根据登陆的token令牌
+      // const token = localStorage.getItem('token')
+      // this.$http.default.header.common['Autuorization'] = token
+      // const {data, status} = await this.$http.get(`users?query=${this.query}&_page=${this.pagenum}&_limit=${this.pagesize}`)
+      const {data, status} = await this.$http.get(`users?_page=${this.pagenum}&_limit=${this.pagesize}`)
+      console.log(data)
+      if (status === 200) {
+        this.$message.success('获取数据成功')
+        this.userlist = data
+        this.total = 9
+        console.log(data.length)
       } else {
         this.$message.warning('获取数据失败')
       }
