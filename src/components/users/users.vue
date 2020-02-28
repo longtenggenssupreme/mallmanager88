@@ -10,7 +10,7 @@
             <el-input placeholder="请输入内容" @clear="searchclear" clearable v-model="query" class="inputSearch">
                 <el-button @click="searchUserlist()" slot="append" icon="el-icon-search"></el-button>
             </el-input>
-            <el-button type="success">成功按钮</el-button>
+            <el-button type="success" @click="showAddUser()">成功按钮</el-button>
         </el-col>
     </el-row>
     <el-table :data="userlist" style="width: 100%">
@@ -36,10 +36,10 @@
         </template>
         </el-table-column>
         <el-table-column prop="name" label="操作">
-           <template>
-             <el-button type="primary" size="mini" plain icon="el-icon-edit" circle></el-button>
+           <template  slot-scope="scope">
+             <el-button type="primary" size="mini" plain icon="el-icon-edit" @click="showEditUser(scope.row)" circle></el-button>
              <el-button type="success" size="mini" plain icon="el-icon-check" circle></el-button>
-             <el-button type="danger" size="mini" plain icon="el-icon-delete" circle></el-button>
+             <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="deleteUser(scope.row.id)" circle></el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -52,11 +52,51 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
+    <el-dialog title="添加用户" :visible.sync="dialogFormVisibleAdd">
+  <el-form :model="form">
+    <el-form-item label="用户名称" label-width="100px">
+      <el-input v-model="form.username" autocomplete="off"></el-input>
+    </el-form-item>
+     <el-form-item label="用户密码" label-width="100px">
+      <el-input v-model="form.password" autocomplete="off"></el-input>
+    </el-form-item>
+     <el-form-item label="邮箱" label-width="100px">
+      <el-input v-model="form.email" autocomplete="off"></el-input>
+    </el-form-item>
+     <el-form-item label="电话" label-width="100px">
+      <el-input v-model="form.mobile" autocomplete="off"></el-input>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisibleAdd = false">取 消</el-button>
+    <el-button type="primary" @click="addUser">确 定</el-button>
+  </div>
+</el-dialog>
+<el-dialog title="编辑用户" :visible.sync="dialogFormVisibleEdit">
+  <el-form :model="form">
+    <el-form-item label="用户名称" label-width="100px">
+      <el-input disabled v-model="form.username" autocomplete="off"></el-input>
+    </el-form-item>
+     <!-- <el-form-item label="用户密码" label-width="100px">
+      <el-input v-model="form.password" autocomplete="off"></el-input>
+    </el-form-item> -->
+     <el-form-item label="邮箱" label-width="100px">
+      <el-input v-model="form.email" autocomplete="off"></el-input>
+    </el-form-item>
+     <el-form-item label="电话" label-width="100px">
+      <el-input v-model="form.mobile" autocomplete="off"></el-input>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisibleEdit = false">取 消</el-button>
+    <el-button type="primary" @click="editUser">确 定</el-button>
+  </div>
+</el-dialog>
 </el-card>
 </template>
 
 <script>
-export default { 
+export default {
   created () {
     this.getUserList()
   },
@@ -66,10 +106,73 @@ export default {
       pagenum: 1,
       pagesize: 2,
       total: -1,
-      userlist: []
+      userlist: [],
+      dialogFormVisibleAdd: false,
+      dialogFormVisibleEdit: false,
+      form: {
+        username: '',
+        password: '',
+        email: '',
+        mobile: ''
+      }
     }
   },
   methods: {
+    async showEditUser (user) {
+      this.dialogFormVisibleEdit = true
+      this.form = user
+    },
+    async editUser () {
+      this.dialogFormVisibleEdit = false
+      const res = await this.$http.put(`users/${this.form.id}`, this.form)
+      if (res.status === 200) {
+        this.form = {}
+        this.$message.success('编辑数据成功')
+        this.getAllUserList()
+      } else {
+        this.$message.warning('编辑数据失败')
+      }
+    },
+    deleteUser (userid) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const res = await this.$http.delete(`users/${userid}`)
+        if (res.status === 200) {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'})
+          this.getAllUserList()
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '删除失败!'})
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    showAddUser () {
+      this.form = {}
+      this.dialogFormVisibleAdd = true
+    },
+    async addUser () {
+      this.dialogFormVisibleAdd = false
+      const res = await this.$http.post('users', this.form)
+      console.log(res)
+      if (res.status === 201) {
+        this.form = {}
+        this.$message.success('添加数据成功')
+        this.getAllUserList()
+      } else {
+        this.$message.warning('添加数据失败')
+      }
+    },
     searchclear () {
       this.getUserList()
     },
@@ -89,6 +192,16 @@ export default {
     },
     async getLikeUserList () {
       const {data, status} = await this.$http.get(`users?username_like=${this.query}`)
+      if (status === 200) {
+        this.$message.success('获取数据成功')
+        this.userlist = data
+        this.total = data.length
+      } else {
+        this.$message.warning('获取数据失败')
+      }
+    },
+    async getAllUserList () {
+      const {data, status} = await this.$http.get(`users`)
       if (status === 200) {
         this.$message.success('获取数据成功')
         this.userlist = data
