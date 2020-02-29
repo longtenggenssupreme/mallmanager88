@@ -95,11 +95,11 @@
 <el-dialog title="编辑用户角色" :visible.sync="dialogFormVisibleRole">
   <el-form :model="form">
     <el-form-item label="角色名称" label-width="100px">
-      {{currentUserName}}
+      {{form.username}}
     </el-form-item>
-    {{currentUserRoleid}}
+    {{form.rid}}
     <el-form-item  label="角色" label-width="100px">
-      <el-select v-model="currentUserRoleid" placeholder="请选择活动区域">
+      <el-select v-model="form.rid" placeholder="请选择活动区域">
         <el-option label="请选择" :value="-1"></el-option>
         <el-option v-for="(item,i) in roles" :key="i" :label="item.rolename" :value="item.id"></el-option>
       </el-select>
@@ -152,10 +152,10 @@ export default {
         this.$message.warning('获取所有用户角色失败')
       }
 
-      // this.form = user
-      this.currentUserName = user.username
+      this.form = user
+      // this.currentUserName = user.username
       // 根据当前用户获取用户的角色id
-      this.currentUserRoleid = user.rid
+      // this.currentUserRoleid = user.rid
       // const res = await this.$http.get(`users/${user.rid}`)
       // if (res.status === 200) {
       //   this.currentUserRoleid = res.data.id
@@ -165,19 +165,12 @@ export default {
       this.dialogFormVisibleRole = true
     },
     async changeUserRole () {
-      // 获取所有用户角色
-      const resRoles = await this.$http.put(`roles`)
-      if (resRoles.status === 200) {
-        this.roles = resRoles.data
-      } else {
-        this.$message.warning('获取所有用户角色失败')
-      }
-      // 根据当前用户获取用户的角色id
-      const res = await this.$http.put(`users/${user.id}`, user)
+      console.log(this.form)
+      const res = await this.$http.put(`users/${this.form.id}`, this.form)
       if (res.status === 200) {
-        this.currentUserRoleid = res.data.id
+        this.$message.success('修改角色权限成功')
       } else {
-        this.$message.warning('根据当前用户获取用户的角色id失败')
+        this.$message.warning('修改角色权失败')
       }
       this.dialogFormVisibleRole = false
     },
