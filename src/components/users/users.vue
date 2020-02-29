@@ -38,8 +38,8 @@
         <el-table-column prop="name" label="操作">
            <template  slot-scope="scope">
              <el-button type="primary" size="mini" plain icon="el-icon-edit" @click="showEditUser(scope.row)" circle></el-button>
-             <el-button type="success" size="mini" plain icon="el-icon-check" @click="showRoleUser(scope.row)" circle></el-button>
              <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="deleteUser(scope.row.id)" circle></el-button>
+             <el-button type="success" size="mini" plain icon="el-icon-check" @click="showUserRole(scope.row)" circle></el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -92,18 +92,22 @@
     <el-button type="primary" @click="editUser">确 定</el-button>
   </div>
 </el-dialog>
-<el-dialog title="编辑用户角色" :visible.sync="dialogFormVisibleEditRole">
+<el-dialog title="编辑用户角色" :visible.sync="dialogFormVisibleRole">
   <el-form :model="form">
-    <el-form-item label="用户名称" label-width="100px">
-      <el-input disabled v-model="form.username" autocomplete="off"></el-input>
+    <el-form-item label="角色名称" label-width="100px">
+      {{currentUserName}}
     </el-form-item>
-     <el-form-item label="用户角色" label-width="100px">
-      <el-input v-model="form.role_name" autocomplete="off"></el-input>
+    {{currentUserRoleid}}
+    <el-form-item  label="角色" label-width="100px">
+      <el-select v-model="currentUserRoleid" placeholder="请选择活动区域">
+        <el-option label="请选择" :value="-1"></el-option>
+        <el-option v-for="(item,i) in roles" :key="i" :label="item.rolename" :value="item.id"></el-option>
+      </el-select>
     </el-form-item>
   </el-form>
   <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisibleEditRole = false">取 消</el-button>
-    <el-button type="primary" @click="editUserRole">确 定</el-button>
+    <el-button @click="dialogFormVisibleRole = false">取 消</el-button>
+    <el-button type="primary" @click="changeUserRole">确 定</el-button>
   </div>
 </el-dialog>
 </el-card>
@@ -123,26 +127,59 @@ export default {
       userlist: [],
       dialogFormVisibleAdd: false,
       dialogFormVisibleEdit: false,
+      dialogFormVisibleRole: false,
       form: {
         username: '',
         password: '',
         email: '',
         mobile: '',
-        role_name: '',
+        rid: -1,
         mg_state: '',
         create_time: ''
-      }
+      },
+      currentUserName: '',
+      currentUserRoleid: -1,
+      roles: []
     }
   },
   methods: {
-    async showRoleUser (user) {
+    async showUserRole (user) {
+      // 获取所有用户角色
+      const resRoles = await this.$http.get(`roles`)
+      if (resRoles.status === 200) {
+        this.roles = resRoles.data
+      } else {
+        this.$message.warning('获取所有用户角色失败')
+      }
+
+      // this.form = user
+      this.currentUserName = user.username
+      // 根据当前用户获取用户的角色id
+      this.currentUserRoleid = user.rid
+      // const res = await this.$http.get(`users/${user.rid}`)
+      // if (res.status === 200) {
+      //   this.currentUserRoleid = res.data.id
+      // } else {
+      //   this.$message.warning('根据当前用户获取用户的角色id失败')
+      // }
+      this.dialogFormVisibleRole = true
+    },
+    async changeUserRole () {
+      // 获取所有用户角色
+      const resRoles = await this.$http.put(`roles`)
+      if (resRoles.status === 200) {
+        this.roles = resRoles.data
+      } else {
+        this.$message.warning('获取所有用户角色失败')
+      }
+      // 根据当前用户获取用户的角色id
       const res = await this.$http.put(`users/${user.id}`, user)
       if (res.status === 200) {
-        this.$message.success('编辑状态成功')
-        // this.getAllUserList()
+        this.currentUserRoleid = res.data.id
       } else {
-        this.$message.warning('编辑状态失败')
+        this.$message.warning('根据当前用户获取用户的角色id失败')
       }
+      this.dialogFormVisibleRole = false
     },
     async changeMsState (user) {
       const res = await this.$http.put(`users/${user.id}`, user)
