@@ -31,14 +31,14 @@
         </el-table-column>
          <el-table-column prop="mg_state" label="用户状态">
             <template slot-scope="scope">
-            <el-switch  v-model="scope.row.mg_state"  active-color="#13ce66"  inactive-color="#ff4949">
+            <el-switch @change="changeMsState(scope.row)"  v-model="scope.row.mg_state"  active-color="#13ce66"  inactive-color="#ff4949">
             </el-switch>
         </template>
         </el-table-column>
         <el-table-column prop="name" label="操作">
            <template  slot-scope="scope">
              <el-button type="primary" size="mini" plain icon="el-icon-edit" @click="showEditUser(scope.row)" circle></el-button>
-             <el-button type="success" size="mini" plain icon="el-icon-check" circle></el-button>
+             <el-button type="success" size="mini" plain icon="el-icon-check" @click="showRoleUser(scope.row)" circle></el-button>
              <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="deleteUser(scope.row.id)" circle></el-button>
             </template>
         </el-table-column>
@@ -92,6 +92,20 @@
     <el-button type="primary" @click="editUser">确 定</el-button>
   </div>
 </el-dialog>
+<el-dialog title="编辑用户角色" :visible.sync="dialogFormVisibleEditRole">
+  <el-form :model="form">
+    <el-form-item label="用户名称" label-width="100px">
+      <el-input disabled v-model="form.username" autocomplete="off"></el-input>
+    </el-form-item>
+     <el-form-item label="用户角色" label-width="100px">
+      <el-input v-model="form.role_name" autocomplete="off"></el-input>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisibleEditRole = false">取 消</el-button>
+    <el-button type="primary" @click="editUserRole">确 定</el-button>
+  </div>
+</el-dialog>
 </el-card>
 </template>
 
@@ -113,11 +127,32 @@ export default {
         username: '',
         password: '',
         email: '',
-        mobile: ''
+        mobile: '',
+        role_name: '',
+        mg_state: '',
+        create_time: ''
       }
     }
   },
   methods: {
+    async showRoleUser (user) {
+      const res = await this.$http.put(`users/${user.id}`, user)
+      if (res.status === 200) {
+        this.$message.success('编辑状态成功')
+        // this.getAllUserList()
+      } else {
+        this.$message.warning('编辑状态失败')
+      }
+    },
+    async changeMsState (user) {
+      const res = await this.$http.put(`users/${user.id}`, user)
+      if (res.status === 200) {
+        this.$message.success('编辑状态成功')
+        // this.getAllUserList()
+      } else {
+        this.$message.warning('编辑状态失败')
+      }
+    },
     async showEditUser (user) {
       this.dialogFormVisibleEdit = true
       this.form = user
