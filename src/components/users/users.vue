@@ -1,10 +1,11 @@
 <template>
 <el-card class="box-card">
-    <el-breadcrumb>
+    <!-- <el-breadcrumb>
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>用户管理</el-breadcrumb-item>
         <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    </el-breadcrumb> -->
+     <my-bread class="mybread" level1="用户管理" level2="用户列表"></my-bread>
     <el-row class="searchRow">
         <el-col>
             <el-input placeholder="请输入内容" @clear="searchclear" clearable v-model="query" class="inputSearch">

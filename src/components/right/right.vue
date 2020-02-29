@@ -1,55 +1,50 @@
 <template>
-  <div>
-    <my-bread level1="用户管理" level2="用户列表"></my-bread>
-    <el-table
-    :data="tableData"
-    stripe
-    style="width: 100%">
-    <el-table-column
-      prop="date"
-      label="日期"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
-  </div>
+<div>
+    <my-bread class="mybread" level1="权限管理" level2="权限列表"></my-bread>
+    <el-table calss="eltable" height=400px :data="authList" border style="width: 100%">
+        <el-table-column type="index" label="#" width="80">
+        </el-table-column>
+        <el-table-column prop="authname" label="权限名称" width="180">
+        </el-table-column>
+        <el-table-column prop="path" label="路径">
+        </el-table-column>
+        <el-table-column label="层级">
+           <template  slot-scope="scope">
+             <span v-if="scope.row.level==='0'">一级</span>
+             <span v-if="scope.row.level==='1'">二级</span>
+             <span v-if="scope.row.level==='2'">三级</span>
+           </template>
+        </el-table-column>
+    </el-table>
+</div>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      authList: []
+    }
+  },
+  created () {
+    this.getAllAuths()
+  },
+  methods: {
+    async getAllAuths () {
+      const res = await this.$http.get(`rights`)
+      this.authList = res.data
     }
   }
-
 }
 </script>
 
 <style>
+.mybread{
+  margin-bottom: 10px;
+  }
 
+.eltable{
+   height: 100%;
+   margin-top: 80px;
+}
 </style>
