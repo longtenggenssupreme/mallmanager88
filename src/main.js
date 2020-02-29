@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+import Mybread from '@/components/cuscom/mybread.vue'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/reset/reset.css'
 import MyHttpServer from '@/plugins/http.js'
@@ -15,7 +16,8 @@ Vue.config.productionTip = false
 Vue.filter('fmttime', (v) => {
   return moment(v).format('YYYY-MM-DD')
 })
-/* eslint-disable no-new */
+Vue.component(Mybread.name, Mybread)
+// eslint-disable-next-line no-new
 new Vue({
   el: '#app',
   router,
