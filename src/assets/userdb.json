@@ -1,0 +1,533 @@
+{
+  "users": [{
+      "id": 1,
+      "username": "一五",
+      "password": "122",
+      "rid": 102,
+      "mobile": "12",
+      "mg_state": false,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwanglinjie@162.com"
+    },
+    {
+      "id": 2,
+      "username": "二六",
+      "password": "1",
+      "rid": 102,
+      "mobile": "2",
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwanglinjie@162.com"
+    },
+    {
+      "id": 3,
+      "username": "admin",
+      "password": "1",
+      "rid": 102,
+      "mobile": "111111111111111111111",
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwanglinjie@162.com"
+    },
+    {
+      "id": 4,
+      "username": "小二",
+      "password": "1",
+      "rid": 101,
+      "mobile": "7788227739",
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwanglinjie@162.com"
+    },
+    {
+      "id": 5,
+      "username": "王三",
+      "password": "1",
+      "rid": 103,
+      "mobile": "13157221347",
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwanglinjie@162.com"
+    },
+    {
+      "id": 6,
+      "username": "李四11",
+      "password": "1",
+      "rid": 102,
+      "mobile": "123456788901",
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwajiwlwnjie@162.com"
+    },
+    {
+      "id": 7,
+      "username": "张五",
+      "password": "1",
+      "rid": "主管",
+      "mobile": "1885553089",
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwfetbe@162.com"
+    },
+    {
+      "id": 8,
+      "username": "88",
+      "password": "1",
+      "rid": 103,
+      "mobile": "123456788901",
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwajiwlwnjie@162.com"
+    },
+    {
+      "id": 9,
+      "username": "99",
+      "password": "1",
+      "mobile": "1885553089",
+      "rid": 105,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "itwfetbe@162.com"
+    },
+    {
+      "username": "888888",
+      "password": "88888",
+      "email": "8888",
+      "mobile": "8888",
+      "rid": 104,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "id": 11
+    },
+    {
+      "username": "123123",
+      "password": "123123",
+      "rid": 102,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "123123",
+      "mobile": "123123",
+      "id": 13
+    },
+    {
+      "username": "123123123",
+      "password": "123123123",
+      "rid": 101,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "123123123",
+      "mobile": "",
+      "id": 14
+    },
+    {
+      "username": "123123123",
+      "password": "123123123",
+      "email": "123123123",
+      "rid": 101,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "mobile": "",
+      "id": 15
+    },
+    {
+      "username": "1231231231",
+      "password": "12412412",
+      "rid": 102,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "email": "",
+      "mobile": "",
+      "id": 16
+    },
+    {
+      "username": "55555",
+      "password": "55555",
+      "email": "5555",
+      "rid": 103,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "mobile": "555",
+      "id": 17
+    },
+    {
+      "username": "77777",
+      "password": "7777",
+      "email": "7777",
+      "mobile": "7777",
+      "rid": -1,
+      "mg_state": true,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "id": 18
+    }
+  ],
+  "roles": [{
+      "id": 101,
+      "rolename": "admin",
+      "roleDes": "管理员",
+      "mg_state": false,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "children": [
+        {
+          "id": 111,
+          "authname": "权限管理",
+          "path": "rights",
+          "children": [
+            {
+            "id": 1111,
+            "authname": "角色列表",
+            "path": "rights",
+            "children": [
+              {
+                "id": 11111,
+                "authname": "角色添加",
+                "path": "null",
+                "children": []
+              },
+              {
+                "id": 11112,
+                "authname": "角色编辑",
+                "path": "null",
+                "children": []
+              },
+              {
+                "id": 11113,
+                "authname": "角色删除",
+                "path": "null",
+                "children": []
+              },
+              {
+                "id": 11114,
+                "authname": "订单添加",
+                "path": "null",
+                "children": []
+              },
+              {
+                "id": 11115,
+                "authname": "订单编辑",
+                "path": "null",
+                "children": []
+              },
+              {
+                "id": 11116,
+                "authname": "diang删除",
+                "path": "null",
+                "children": []
+              }]},
+              {
+                "id": 1111,
+                "authname": "权限列表",
+                "path": "rights",
+                "children": [
+                  {
+                    "id": 11111,
+                    "authname": "权限添加",
+                    "path": "null",
+                    "children": []
+                  },
+                  {
+                    "id": 11112,
+                    "authname": "权限编辑",
+                    "path": "null",
+                    "children": []
+                  },
+                  {
+                    "id": 11113,
+                    "authname": "权限删除",
+                    "path": "null",
+                    "children": []
+                  }]}]
+          },
+          {
+            "id": 112,
+            "authname": "商品管理",
+            "path": "goods",
+            "children": []
+          },
+          {
+            "id": 113,
+            "authname": "订单管理",
+            "path": "orders",
+            "children": []
+          },
+          {
+            "id": 114,
+            "authname": "报表管理",
+            "path": "reports",
+            "children": []
+          }]
+    },
+    {
+      "id": 102,
+      "rolename": "超级管理员",
+      "roleDes": "超级管理员",
+      "mg_state": false,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "children": []
+    },
+    {
+      "id": 103,
+      "rolename": "主管",
+      "roleDes": "超级管理员",
+      "mg_state": false,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "children": []
+    },
+    {
+      "id": 104,
+      "rolename": "测试人员",
+      "roleDes": "测试人员",
+      "mg_state": false,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "children": []
+    },
+    {
+      "id": 105,
+      "rolename": "经理",
+      "roleDes": "经理",
+      "mg_state": false,
+      "create_time": "2020-02-23T16:25:54.414Z",
+      "children": []
+    }
+  ],
+  "rights": [
+    {
+      "id": 11,
+      "authname": "商品管理",
+      "level": "0",
+      "path": "goods",
+      "pid": "pid"
+    },
+    {
+      "id": 12,
+      "authname": "订单管理",
+      "level": "0",
+      "path": "orders",
+      "pid": "pid"
+    },
+    {
+      "id": 13,
+      "authname": "权限管理",
+      "level": "0",
+      "path": "rights",
+      "pid": "pid"
+    },
+    {
+      "id": 15,
+      "authname": "商品列表",
+      "level": "1",
+      "path": "goods",
+      "pid": "pid"
+    },
+    {
+      "id": 16,
+      "authname": "添加商品",
+      "level": "2",
+      "path": "goods",
+      "pid": "pid"
+    },
+    {
+      "id": 17,
+      "authname": "订单列表",
+      "level": "1",
+      "path": "orders",
+      "pid": "pid"
+    },
+    {
+      "id": 18,
+      "authname": "添加订单",
+      "level": "2",
+      "path": "orders",
+      "pid": "pid"
+    },
+    {
+      "id": 19,
+      "authname": "用户列表",
+      "level": "1",
+      "path": "users",
+      "pid": "pid"
+    },
+    {
+      "id": 20,
+      "authname": "角色列表",
+      "level": "1",
+      "path": "roles",
+      "pid": "pid"
+    }
+  ],
+ "rolerights": [
+    {
+    "id": 1,
+    "authname": "用户管理",
+    "level": "0",
+    "path": "users",
+    "pid": 0,
+    "children": [{
+      "id": 5,
+      "authname": "用户列表",
+      "level": "1",
+      "path": "users",
+      "pid": 1,
+      "children": [{
+        "id": 6,
+        "authname": "添加用户",
+        "level": "2",
+        "path": "users",
+        "pid": 5,
+        "children": []
+      },
+      {
+        "id": 7,
+        "authname": "编辑用户",
+        "level": "2",
+        "path": "users",
+        "pid": 5,
+        "children": []
+      }]
+    }]
+  },
+  {
+    "id": 2,
+    "authname": "权限管理",
+    "level": "0",
+    "path": "rights",
+    "pid": 0,
+    "children": [{
+      "id": 8,
+      "authname": "角色列表",
+      "level": "1",
+      "path": "rights",
+      "pid": 2,
+      "children": [{
+        "id": 10,
+        "authname": "角色编辑",
+        "level": "2",
+        "path": "rights",
+        "pid": 8,
+        "children": []
+      },
+      {
+        "id": 11,
+        "authname": "角色删除",
+        "level": "2",
+        "path": "rights",
+        "pid": 8,
+        "children": []
+      }]
+    },
+    {
+      "id": 9,
+      "authname": "权限列表",
+      "level": "1",
+      "path": "rights",
+      "pid": 2,
+      "children": []
+    }]
+  },{
+      "id": 3,
+      "authname": "商品管理",
+      "level": "0",
+      "path": "goods",
+      "pid": 0
+    },
+    {
+      "id": 4,
+      "authname": "订单管理",
+      "level": "0",
+      "path": "orders",
+      "pid": 0
+    },    
+    {
+      "id": 5,
+      "authname": "报表列表",
+      "level": "0",
+      "path": "reports",
+      "pid": 0
+    }],
+  "menus": [
+      {
+      "id": 1,
+      "authname": "用户管理",
+      "order": 1,
+      "path": "users",
+      "children": [
+        {
+          "id": 6,
+          "authname": "用户列表",
+          "order": null,
+          "path": "users",
+          "children": []
+        }]
+      },
+    {
+      "id": 2,
+      "authname": "权限管理",
+      "path": "rights",
+      "order": 2,
+      "children": [{
+        "id": 7,
+        "authname": "角色列表",
+        "order": null,
+        "path": "roles",
+        "children": []
+      },
+      {
+        "id": 8,
+        "authname": "权限列表",
+        "order": null,
+        "path": "rights",
+        "children": []
+      }]
+    },{
+        "id": 3,
+        "authname": "商品管理",
+        "order": 3,
+        "path": "goods",
+        "children": [{
+          "id": 9,
+          "authname": "商品列表",
+          "order": null,
+          "path": "goods",
+          "children": []
+        },
+        {
+          "id": 10,
+          "authname": "分类参数",
+          "order": null,
+          "path": "goods",
+          "children": []
+        },
+        {
+          "id": 10,
+          "authname": "商品分类",
+          "order": null,
+          "path": "goods",
+          "children": []
+        }]
+      },
+      {
+        "id": 4,
+        "authname": "订单管理",
+        "order": 4,
+        "path": "orders",
+        "children": [{
+          "id": 11,
+          "authname": "订单列表",
+          "order": null,
+          "path": "orders",
+          "children": []
+        }]
+      },    
+      {
+        "id": 5,
+        "authname": "报表列表",
+        "order": 0,
+        "path": "reports",
+        "children": [{
+          "id": 12,
+          "authname": "数据报表",
+          "order": null,
+          "path": "reports",
+          "children": []
+        }]
+      }]
+}

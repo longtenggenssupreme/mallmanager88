@@ -20,7 +20,17 @@
     <el-container>
         <el-aside class="aside" width="200px">
             <el-menu :router="true" :unique-opened="true" default-active="2" class="el-menu-vertical-demo">
-                <el-submenu index="1">
+                 <el-submenu :index="''+item.order" v-for="(item,index) in menus" :key="index">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>{{item.authname}}</span>
+                    </template>
+                    <el-menu-item :index="item1.path" v-for="(item1,index) in item.children" :key="index">
+                        <i class="el-icon-menu"></i>
+                        <span>{{item1.authname}}</span>
+                    </el-menu-item>
+                </el-submenu>
+                <!-- <el-submenu index="1">
                     <template slot="title">
                         <i class="el-icon-location"></i>
                         <span>用户管理</span>
@@ -81,7 +91,7 @@
                         <i class="el-icon-menu"></i>
                         <span>数据统计</span>
                     </el-menu-item>
-                </el-submenu>
+                </el-submenu> -->
             </el-menu>
         </el-aside>
         <el-main class="main">
@@ -93,14 +103,26 @@
 
 <script>
 export default {
-  // 验证token标记
-  beforeCreate () {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      this.$router.push({ name: 'login' })
+  data () {
+    return {
+      menus: []
     }
   },
+  // 验证token标记
+  beforeCreate () {
+    // const token = localStorage.getItem('token')
+    // if (!token) {
+    //   this.$router.push({ name: 'login' })
+    // }
+  },
+  created () {
+    this.getMenus()
+  },
   methods: {
+    async getMenus () {
+      const res = await this.$http.get(`menus`)
+      this.menus = res.data
+    },
     loginout () {
       localStorage.clear()
       this.$message.success('推出成功')
