@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     async getMenus () {
-      const res = await this.$http.get(`menus`)
+      const res = await this.$http.get('menus')
       this.menus = res.data
     },
     loginout () {

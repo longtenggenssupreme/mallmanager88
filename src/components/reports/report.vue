@@ -3,17 +3,17 @@
 </template>
 
 <script>
-import myechart from 'echarts';
+import myechart from 'echarts'
 export default {
   mounted () {
-    this.showData();
+    this.showData()
   },
   data () {
 
   },
   methods: {
     showData () { // 基于准备好的dom，初始化echarts实例
-      var myChart = myechart.init(document.getElementById('mydiv'));
+      var myChart = myechart.init(document.getElementById('mydiv'))
 
       // 指定图表的配置项和数据
       var option = {
@@ -34,13 +34,13 @@ export default {
             type: 'bar',
             data: [5, 20, 36, 10, 10, 20]
           }
-        ] };
+        ] }
 
       // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
+      myChart.setOption(option)
     }
   }
-};
+}
 </script>
 
 <style></style>

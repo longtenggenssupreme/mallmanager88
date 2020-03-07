@@ -146,8 +146,8 @@ export default {
   methods: {
     async showUserRole (user) {
       // 获取所有用户角色
-      const resRoles = await this.$http.get(`roles`)
-      if (resRoles.status === 200) {
+      const resRoles = await this.$http.get("roles")
+      if (resRoles.status === 200)    {
         this.roles = resRoles.data
       } else {
         this.$message.warning('获取所有用户角色失败')
@@ -213,7 +213,7 @@ export default {
           this.getAllUserList()
         } else {
           this.$message({
-            type: 'warning',
+            type: "warning",
             message: '删除失败!'})
         }
       }).catch(() => {
@@ -267,7 +267,7 @@ export default {
       }
     },
     async getAllUserList () {
-      const {data, status} = await this.$http.get(`users`)
+      const {data, status} = await this.$http.get('users')
       if (status === 200) {
         this.$message.success('获取数据成功')
         this.userlist = data

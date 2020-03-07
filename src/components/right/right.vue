@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     async getAllAuths () {
-      const res = await this.$http.get(`rights`)
+      const res = await this.$http.get('rights')
       this.authList = res.data
     }
   }

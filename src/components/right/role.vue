@@ -189,11 +189,11 @@ export default {
     //   }
     },
     async getAllrolerights () {
-      const res = await this.$http.get(`rolerights`)
+      const res = await this.$http.get('rolerights')
       this.treeList = res.data
     },
     async getAllroles () {
-      const res = await this.$http.get(`roles`)
+      const res = await this.$http.get('roles')
       this.roleList = res.data
     }
   }
